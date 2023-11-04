@@ -1,0 +1,12 @@
+export const GET_ALL_FRUITS = "GET_ALL_FRUITS";
+export const GET_FRUITS = "GET_FRUITS";
+export const POST_NEW_FRUITS = "POST_NEW_FRUITS";
+
+export const GET_ALL_VEGETABLES = "GET_ALL_VEGETABLES";
+export const GET_VEGETABLES = "GET_VEGETABLES";
+export const POST_NEW_VEGETABLES = "POST_NEW_VEGETABLES";
+
+export const FRUITS = "FRUITS";
+export const VEGETABLES = "VEGETABLES";
+
+export const GET_ALL_LOCATION = "GET_ALL_LOCATION";

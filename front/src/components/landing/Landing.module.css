@@ -1,0 +1,91 @@
+/* LO 1° QUE SE VE */
+.Landing {
+    background: linear-gradient(rgba(255, 222, 182, 0.2), rgba(255, 222, 182, 0.2)), url("front\src\assets\frutascolores-t.jpg.webp");
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-repeat: no-repeat;
+}
+
+/* RECTANGULO DONDE VA LA FRASE Y EL BOTON */
+.container {
+    margin-top: 17%;
+    margin-bottom: 35%;
+    margin-left: -43%;
+}
+
+/* FRASE: Prueba Manuable TANIA */
+.container h1 {
+    display: flex;
+    justify-content: flex-start;
+    text-align: center;
+    font-family: serif;
+    font-size: 80px;
+    font-style: normal;
+    color: #484848;
+    border-color: #f4f4f4;    
+    box-shadow: 0 0 15px rgb(255, 255, 255);
+    border-radius: 50px;
+    transition: .5s;
+    color: white;
+}
+
+/* BOTON: JOIN NOW */
+.container button {
+    text-align: center;
+    margin-top: 0, 2%;
+    width: 25%;
+    height: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #a21c1cf5;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgb(255, 255, 255);
+    border-radius: 50px;
+    transition: .5s;
+    color: white;
+}
+
+.container button:hover {
+    transform: scale(1.1);
+}
+
+@media screen and (max-width: 768px) {
+
+    /* Modificar estilos para dispositivos más pequeños */
+    .container {
+        margin-top: 10%;
+        margin-bottom: 20%;
+        margin-left: -20%;
+    }
+
+    .container h1 {
+        font-size: 20px;
+    }
+
+    .container button {
+        width: 15%;
+    }
+}
+
+/* Media query para pantallas de notebook */
+@media screen and (max-width: 1366px) {
+    .container {
+        margin-top: 16%;
+        margin-bottom: 20%;
+        margin-left: -43%;
+    }
+
+    .container h1 {
+        font-size: 60px;
+    }
+
+    .container button {
+        width: 35%;
+    }
+}
