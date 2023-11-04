@@ -1,60 +1,99 @@
 import {
+  ADD_FRUITS,
+  ADD_VEGETABLES,
+  PRICE,
+  ALPHABETIC_ORDER,
   GET_ALL_FRUITS,
-  GET_FRUITS,
-  POST_NEW_FRUITS,
   GET_ALL_VEGETABLES,
+  SET_LOADING,
+  CLEAN_STATES,
+  GET_FRUITS,
   GET_VEGETABLES,
-  POST_NEW_VEGETABLES,
-  GET_ALL_LOCATION,
 } from "./actions-types";
 
 const initialState = {
-  allFruits: [],
-  allVegetables: [],
-  allLocations: [],
+  myFruits: [],
+  myVegetables: [],
+  loading: false,
+  detail: {},
   fruits: [],
   vegetables: [],
-  postFruits: [],
-  postVegetables: [],
+  allFruits: [],
+  allVegetables: [],
 };
-
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
+const reducer = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case SET_LOADING:
+      return {
+        ...state,
+        loading: payload,
+      };
+    case ADD_FRUITS:
+      return {
+        ...state,
+        myFruits: [...state.myFruits, payload],
+        allFruits: [...state.allFruits, payload],
+      };
+    case ADD_VEGETABLES:
+      return {
+        ...state,
+        myVegetables: [...state.myVegetables, payload],
+        allVegetables: [...state.allVegetables, payload],
+      };
     case GET_ALL_FRUITS:
       return {
         ...state,
-        allFruits: action.payload,
+        myFruits: payload,
+        allFruits: payload,
       };
     case GET_ALL_VEGETABLES:
       return {
         ...state,
-        allVegetables,
-      };
-    case GET_ALL_LOCATION:
-      return {
-        ...state,
-        allLocations: action.payload,
+        myVegetables: payload,
+        allVegetables: payload,
       };
     case GET_FRUITS:
       return {
         ...state,
-        fruits: action.payload,
+        fruits: payload,
       };
     case GET_VEGETABLES:
       return {
         ...state,
-        vegetables: action.payload,
+        vegetables: payload,
       };
-    case POST_NEW_FRUITS:
+    case ALPHABETIC_ORDER:
       return {
         ...state,
-        postFruits: action.payload,
+        myFruits:
+          payload === "A-Z"
+            ? state.myFruits.sort((a, b) => a.title.localeCompare(b.title))
+            : state.myFruits.sort((a, b) => b.title.localeCompare(a.title)),
+        myVegetables:
+          payload === "A-Z"
+            ? state.myVegetables.sort((a, b) => a.title.localeCompare(b.title))
+            : state.myVegetables.sort((a, b) => b.title.localeCompare(a.title)),
       };
-    case POST_NEW_VEGETABLES:
+    case PRICE:
       return {
         ...state,
-        postVegetables: action.payload,
+        myFruits:
+          payload === "Ascendente"
+            ? state.myFruits.sort((a, b) => (a.price < b.price ? -1 : 1))
+            : state.myFruits.sort((a, b) => (a.price > b.price ? -1 : 1)),
+        myVegetables:
+          payload === "Ascendente"
+            ? state.myVegetables.sort((a, b) => (a.price < b.price ? -1 : 1))
+            : state.myFruits.sort((a, b) => (a.price > b.price ? -1 : 1)),
       };
+
+    case CLEAN_STATES: //Limpia el estado detail restableciéndolo a un objeto vacío
+      return {
+        ...state,
+        detail: {},
+      };
+    default:
+      return { ...state };
   }
 };
 

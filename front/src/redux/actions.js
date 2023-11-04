@@ -1,105 +1,124 @@
 import {
+  ADD_FRUITS,
+  ADD_VEGETABLES,
+  PRICE,
+  ALPHABETIC_ORDER,
   GET_ALL_FRUITS,
-  POST_NEW_FRUITS,
   GET_ALL_VEGETABLES,
-  POST_NEW_VEGETABLES,
-  GET_ALL_LOCATION,
+  SET_LOADING,
+  CLEAN_STATES,
+  GET_FRUITS,
+  GET_VEGETABLES,
 } from "./actions-types";
-
-import { FRUITS, VEGETABLES } from "../redux/actions-types";
-
 import axios from "axios";
-import Swal from "sweetalert2";
 
-export const GET_ALL_LOCATION = (PAD) => {
+export const setLoading = (isLoading) => {
+  return {
+    type: SET_LOADING,
+    payload: isLoading,
+  };
+};
+export const addFruits = (fruits) => {
   return async function (dispatch) {
     try {
-      let PADLocations;
-      switch (PAD) {
-        case FRUITS:
-          PADLocations = await axios.get("/fruits");
-          break;
-        case VEGETABLES:
-          PADLocations = await axios.get("/vegetables");
-          break;
-        default:
-          return;
-      }
-
-      const DataPAD = PADLocations.data;
+      console.log(fruits);
+      const response = await axios.post("http://localhost:27017", fruits);
+      console.log(response);
+      alert("Fruits created successfully!");
+      return dispatch({ type: ADD_FRUITS, payload: response.data });
     } catch (error) {
       console.log(error.message);
+      alert("No se pudo crear la fruta");
     }
   };
 };
-
-export const postNewFruits = (payload) => {
-  return function (dispatch) {
-    try {
-      console.log(payload);
-      axios
-        .post("/fruits", payload)
-        .then((data) => {
-          Swal.fire("Fruta creada exitosamente");
-          return dispatch({
-            type: POST_NEW_FRUITS,
-            payload: data,
-          });
-        })
-        .catch((error) => {
-          Swal.fire(error.response.data.error);
-        });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-};
-export const postNewVegetables = (payload) => {
-  return function (dispatch) {
-    try {
-      console.log(payload);
-      axios
-        .post("/vegetables", payload)
-        .then((data) => {
-          Swal.fire("Verdura creada exitosamente");
-          return dispatch({
-            type: POST_NEW_VEGETABLES,
-            payload: data,
-          });
-        })
-        .catch((error) => {
-          Swal.fire(error.response.data.error);
-        });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-};
-
-export const GET_ALL_VEGETABLES = () => {
+export const addVegetables = (vegetables) => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`/vegetables`);
-      return dispatch({
-        type: GET_ALL_VEGETABLES,
-        payload: response.data,
-      });
+      console.log(vegetables);
+      const response = await axios.post("http://localhost:27017", vegetables);
+      console.log(response);
+      alert("Vegetables created successfully!");
+      return dispatch({ type: ADD_VEGETABLES, payload: response.data });
     } catch (error) {
       console.log(error.message);
+      alert("No se pudo crear la verdura");
     }
   };
 };
 
-export const GET_ALL_FRUITS = () => {
+export const getAllFruits = () => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(`/fruits`);
-      return dispatch({
-        type: GET_ALL_FRUITS,
-        payload: response.data,
-      });
+      dispatch(setLoading(true));
+      console.log("ejecutando action");
+      const response = await axios.get("http://localhost:27017/fruits");
+      console.log("ejecutando action 2");
+      dispatch({ type: GET_ALL_FRUITS, payload: response.data });
+      dispatch(setLoading(false));
     } catch (error) {
-      console.log(error.message);
+      alert("No se encontraron las frutas");
     }
+  };
+};
+
+export const getAllVegetables = () => {
+  return async function (dispatch) {
+    try {
+      dispatch(setLoading(true));
+      console.log("ejecutando action");
+      const response = await axios.get("http://localhost:27017/vegetables");
+      console.log("ejecutando action 2");
+      dispatch({ type: GET_ALL_VEGETABLES, payload: response.data });
+      dispatch(setLoading(false));
+    } catch (error) {
+      alert("No se encontraron las verduras");
+    }
+  };
+};
+
+export const getFruits = () => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get("http://localhost:27017/fruits");
+      dispatch({ type: GET_FRUITS, payload: response.data });
+    } catch (error) {
+      alert("Mi base de datos no tiene las frutas solicitadas");
+    }
+  };
+};
+
+export const getVegetables = () => {
+  return async function (dispatch) {
+    try {
+      const response = await axios.get("http://localhost:27017/vegetables");
+      dispatch({ type: GET_VEGETABLES, payload: response.data });
+    } catch (error) {
+      alert("Mi base de datos no tiene las verduras solicitadas");
+    }
+  };
+};
+
+export const orderAlphabetic = (option) => {
+  return {
+    type: ALPHABETIC_ORDER,
+    payload: option,
+  };
+};
+
+export const price = (score) => {
+  return {
+    type: PRICE,
+    payload: score,
+  };
+};
+export const deleteFilters = () => {
+  return {
+    type: "DELETE_FILTERS",
+  };
+};
+export const cleanStates = () => {
+  return {
+    type: CLEAN_STATES,
   };
 };

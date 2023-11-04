@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getAllFruits,
   getAllVegetables,
-  orderRecipeAlphabetic,
+  orderAlphabetic,
   getFruits,
   getVegetables,
   deleteFilters,
   cleanStates,
-} from "../../redux/actions";
+} from "../redux/actions";
 import { useEffect, useState } from "react";
 
 export default function HomePage(props) {
@@ -55,7 +55,7 @@ export default function HomePage(props) {
   const orderHandler = (event) => {
     const { name, value } = event.target;
     if (name === "Alphabetic") {
-      dispatch(orderRecipeAlphabetic(value));
+      dispatch(orderAlphabetic(value));
     } else {
       dispatch(price(value));
     }

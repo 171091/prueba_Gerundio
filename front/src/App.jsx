@@ -1,6 +1,7 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { Landing, Home } from "./components";
+import { Landing } from "./components/Landing";
+import { Home } from "./components/Home";
+
 import { useEffect } from "react";
 
 function App() {
